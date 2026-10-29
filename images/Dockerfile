@@ -25,6 +25,10 @@ RUN curl -f -L -o runner-container-hooks.zip https://github.com/actions/runner-c
     && unzip ./runner-container-hooks.zip -d ./k8s-novolume \
     && rm runner-container-hooks.zip
 
+RUN curl -f -L -o runner-container-hooks.zip https://github.com/actions/runner-container-hooks/releases/download/v0.8.1/actions-runner-hooks-docker-0.8.1.zip \
+    && unzip ./runner-container-hooks.zip -d ./docker-hooks \
+    && rm runner-container-hooks.zip
+
 RUN export RUNNER_ARCH=${TARGETARCH} \
     && if [ "$RUNNER_ARCH" = "amd64" ]; then export DOCKER_ARCH=x86_64 ; fi \
     && if [ "$RUNNER_ARCH" = "arm64" ]; then export DOCKER_ARCH=aarch64 ; fi \
@@ -48,7 +52,7 @@ RUN apt update -y \
     && apt install -y --no-install-recommends sudo lsb-release gpg-agent software-properties-common curl jq unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure git-core/ppa based on guidance here:  https://git-scm.com/download/linux
+# Configure git-core/ppa based on guidance here:  https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 RUN add-apt-repository ppa:git-core/ppa \
     && apt update -y \
     && apt install -y git \
