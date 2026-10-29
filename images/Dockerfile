@@ -52,7 +52,7 @@ RUN apt update -y \
     && apt install -y --no-install-recommends sudo lsb-release gpg-agent software-properties-common curl jq unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure git-core/ppa based on guidance here:  https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+# Configure git-core/ppa based on guidance here:  https://git-scm.com/download/linux
 RUN add-apt-repository ppa:git-core/ppa \
     && apt update -y \
     && apt install -y git \
